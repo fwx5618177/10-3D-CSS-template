@@ -1,0 +1,430 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+<title>CodePen - CSS 3D Animated Chart</title>
+<style>
+@font-face {
+  font-family: 'Cabin';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Cabin Italic'), local('Cabin-Italic'), url(https://fonts.gstatic.com/s/cabin/v14/u-4_0qWljRw-Pd81z_9Cmw.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cabin';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cabin'), local('Cabin-Regular'), url(https://fonts.gstatic.com/s/cabin/v14/u-4x0qWljRw-Pd8w__g.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cabin';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Cabin Bold'), local('Cabin-Bold'), url(https://fonts.gstatic.com/s/cabin/v14/u-480qWljRw-PdeL2uhluyw.ttf) format('truetype');
+}
+body,
+input,
+button,
+textarea,
+select {
+  font: 16px Cabin;
+  color: #bdbebf;
+  background: #4a4844;
+}
+figure {
+  text-align: center;
+}
+[peak-chart] {
+  position: relative;
+  display: inline-block;
+  width: 240px;
+  height: 240px;
+  border-radius: 120px;
+  margin-top: 120px;
+  -webkit-transform: rotateX(45deg);
+  -moz-transform: rotateX(45deg);
+  -ms-transform: rotateX(45deg);
+  transform: rotateX(45deg);
+}
+[peak-chart],
+[peak-chart] * {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+[peak-chart] > [face] {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  -webkit-transform-origin: 0 100%;
+  -moz-transform-origin: 0 100%;
+  -ms-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transition: all 0.25s ease-in;
+  -moz-transition: all 0.25s ease-in;
+  transition: all 0.25s ease-in;
+}
+[peak-chart] > [face]:nth-child(1) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(192, 60%, 50%), hsl(192, 60%, 50%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(192, 60%, 50%), hsl(192, 60%, 50%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(2) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(192, 60%, 60%), hsl(192, 60%, 60%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(192, 60%, 60%), hsl(192, 60%, 60%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(3) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(207, 60%, 50%), hsl(207, 60%, 50%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(207, 60%, 50%), hsl(207, 60%, 50%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(4) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(207, 60%, 60%), hsl(207, 60%, 60%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(207, 60%, 60%), hsl(207, 60%, 60%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(5) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(234, 32%, 50%), hsl(234, 32%, 50%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(234, 32%, 50%), hsl(234, 32%, 50%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(6) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(234, 32%, 60%), hsl(234, 32%, 60%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(234, 32%, 60%), hsl(234, 32%, 60%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(7) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(345, 58%, 50%), hsl(345, 58%, 50%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(345, 58%, 50%), hsl(345, 58%, 50%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(8) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(345, 58%, 60%), hsl(345, 58%, 60%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(345, 58%, 60%), hsl(345, 58%, 60%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(9) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(185, 27%, 50%), hsl(185, 27%, 50%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(185, 27%, 50%), hsl(185, 27%, 50%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(10) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(185, 27%, 60%), hsl(185, 27%, 60%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(185, 27%, 60%), hsl(185, 27%, 60%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(11) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(298, 29%, 50%), hsl(298, 29%, 50%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(298, 29%, 50%), hsl(298, 29%, 50%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(12) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(298, 29%, 60%), hsl(298, 29%, 60%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(298, 29%, 60%), hsl(298, 29%, 60%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(13) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(220, 6%, 80%), hsl(220, 6%, 80%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(220, 6%, 80%), hsl(220, 6%, 80%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(14) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(220, 6%, 90%), hsl(220, 6%, 90%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(220, 6%, 90%), hsl(220, 6%, 90%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(15) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(220, 6%, 80%), hsl(220, 6%, 80%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(220, 6%, 80%), hsl(220, 6%, 80%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(16) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(220, 6%, 90%), hsl(220, 6%, 90%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(220, 6%, 90%), hsl(220, 6%, 90%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(17) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(220, 6%, 80%), hsl(220, 6%, 80%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(220, 6%, 80%), hsl(220, 6%, 80%) 50%, transparent 50%);
+}
+[peak-chart] > [face]:nth-child(18) {
+  background-image: -webkit-linear-gradient(bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), -webkit-linear-gradient(bottom right, hsl(220, 6%, 90%), hsl(220, 6%, 90%) 50%, transparent 50%);
+  background-image: linear-gradient(to top left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25) 50%, transparent 50%), linear-gradient(to top left, hsl(220, 6%, 90%), hsl(220, 6%, 90%) 50%, transparent 50%);
+}
+[peak-chart] > label {
+  position: absolute;
+  font-weight: bold;
+  font-size: 90%;
+  -webkit-transition: all 0.25s ease-in;
+  -moz-transition: all 0.25s ease-in;
+  transition: all 0.25s ease-in;
+}
+[peak-chart] > label:before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background-image: -webkit-linear-gradient(top right, hsl(207.00000000000006, 60%, 89.99999999999999%), hsl(207.00000000000003, 59.999999999999986%, 60%));
+  background-image: linear-gradient(to bottom left, hsl(207.00000000000006, 60%, 89.99999999999999%), hsl(207.00000000000003, 59.999999999999986%, 60%));
+}
+[peak-chart] > label[point=bottomright] {
+  padding-right: 6px;
+  padding-bottom: 9px;
+}
+[peak-chart] > label[point=bottomright]:before {
+  right: -3px;
+  bottom: 3px;
+}
+[peak-chart] > label[point=bottomleft] {
+  padding-left: 6px;
+  padding-bottom: 9px;
+}
+[peak-chart] > label[point=bottomleft]:before {
+  left: -3px;
+  bottom: 3px;
+}
+[peak-chart] > label[point=topleft] {
+  padding-left: 4px;
+  padding-top: 4px;
+}
+[peak-chart] > label[point=topleft]:before {
+  left: -3px;
+  top: -3px;
+}
+[peak-chart] > label[point=topright] {
+  padding-right: 4px;
+  padding-top: 4px;
+}
+[peak-chart] > label[point=topright]:before {
+  right: -3px;
+  top: -3px;
+}
+figcaption {
+  line-height: 36px;
+  font-style: italic;
+}
+figcaption button {
+  background: none;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  font-size: 90%;
+  margin: 0;
+  padding: 1px 0.5em 0;
+  line-height: 1.3;
+  border-radius: 0.5em;
+  vertical-align: text-top;
+}
+figcaption button:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+</style>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body translate="no">
+<main ng-app="myApp">
+<figure ng-controller="chartCtrl">
+<div peak-chart data="data">
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<span face></span>
+<label></label>
+<label></label>
+<label></label>
+<label></label>
+<label></label>
+<label></label>
+<label></label>
+<label></label>
+<label></label>
+</div>
+<figcaption>
+Some data. &nbsp;&nbsp;
+<button ng-click="paused=!paused">
+{{ paused && '\u25b8' || '\u2759\u2759' }}
+</button>
+</figcaption>
+</figure>
+</main>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-db44b196776521ea816683afab021f757616c80860d31da6232dedb8d7cc4862.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js'></script>
+<script id="rendered-js">
+// vim: et:sts=2:sw=2
+
+var angular = window.angular,
+console = window.console;
+
+window.chartCtrl = ['$scope', function ($scope) {
+  $scope.data = new Array(9);
+
+  $scope.sample = function () {
+    if (!$scope.paused) {
+      for (var i = 0, l = $scope.data.length; i < l; i++) {
+        $scope.data[i] = Math.random() * 95 + 5;
+      }
+    }
+  };
+
+  $scope.paused = false;
+
+  $scope.sample();
+  $scope.sampler = setInterval(function () {
+    if (!$scope.paused) {
+      $scope.$apply($scope.sample);
+    }
+  }, 2000);
+}];
+
+angular.module('myApp', []).
+
+directive('peakChart', ['$window', function ($win) {
+  var PI = Math.PI,
+  sin = Math.sin,
+  cos = Math.cos,
+  tan = Math.tan,
+  atan = Math.atan,
+  acos = Math.acos,
+  sqrt = Math.sqrt,
+  pow = Math.pow,
+  abs = Math.abs,
+  rSkRo = /^(?:sk|ro)/;
+
+  return {
+    link: function (scope, elm, attrs) {
+      var faces = elm[0].querySelectorAll('[face]'),
+      labels = elm[0].getElementsByTagName('label'),
+      r = elm[0].offsetWidth / 2,
+      charth = 1.5 * r; // max height of peaks: revisit
+
+      scope.$watch(attrs.data, function (data) {
+        var sum = 0;
+        angular.forEach(data, function (d) {sum += d;});
+
+        // iterate slices
+        for (var i = 0, face; face = faces[2 * i]; i++) {
+          var bkFace = faces[2 * i + 1]
+          //
+          // split the peaks evenly around the graph
+          //
+          ,slice = 2 * PI / (faces.length / 2),
+          npos = i * slice - PI
+          //
+          // give the slice height based on data - assume data values are percentages
+          // also, tone down the peaks in front (HACK)
+          //
+          ,val = i >= 4 ? data[i] * 0.6 : data[i],
+          h = val * charth / 100
+          //
+          // face angle - each face covers half the slice
+          //
+          ,fang = slice / 2
+          // 
+          // we want the faces to meet at a point "h" pixels above the
+          // midpoint of the slice's arc
+          //
+          ,chord = 2 * r * sin(fang / 2)
+          //
+          // chord's angle with radius
+          //  
+          ,chang = (PI - fang) / 2
+          //
+          // altitude from radius to arc midpoint
+          //
+          ,alt2mp = chord * sin(chang),
+
+          slope = atan(h / alt2mp),
+          slopeLen = sqrt(pow(h, 2) + pow(alt2mp, 2))
+          //
+          // the radial triangles are half squares so h = r
+          //
+          ,scaleY = slopeLen / r,
+          skew = atan(chord * cos(chang) / slopeLen);
+
+
+          setTransform(face,
+          'translateZ', 2,
+          'rotateZ', npos,
+          'rotateX', slope - Math.PI,
+          'skewX', skew,
+          'scaleY', scaleY);
+
+
+          setTransform(bkFace,
+          'translateZ', 2,
+          'rotateZ', npos + slice,
+          'rotateX', -slope,
+          'skewX', skew,
+          'scaleY', scaleY);
+
+
+          var lbl = labels[i];
+          lbl.textContent = Math.round(val);
+
+          var rlbl = r,
+          nlbl = -npos - slice / 2,
+          lblx = rlbl * cos(nlbl),
+          lbly = rlbl * sin(nlbl),
+          lblxat = lblx > 0 ? 'left' : 'right',
+          lblyat = lbly > 0 ? 'bottom' : 'top';
+
+          lbl.style[lblxat] = r + abs(lblx) + 'px';
+          lbl.style[lblyat] = r + abs(lbly) + 15 + 'px';
+          lbl.setAttribute('point', lblyat + lblxat); // e.g., [point=topleft]
+
+          if (i < 5) {
+            setTransform(lbl,
+            'rotateX', deg(-45),
+            'translateY', -(h / sqrt(2)),
+            'translateZ', h / sqrt(2));
+
+          }
+        }
+
+      }, /* deep */true);
+    } };
+
+
+  function rad(x) {
+    return Math.round(x * 1000) / 1000 + 'rad';
+  }
+
+
+  function setTransform(node) {
+    var ns = node.style,trans = '';
+    for (var i = 1, l = arguments.length; i < l; i += 2) {
+      var nm = arguments[i],val = arguments[i + 1];
+      trans += nm + '(' + (
+      rSkRo.test(nm) ? rad(val) :
+      nm.slice(0, 2) === 'tr' ? val + 'px' :
+      val) + ') ';
+    }
+    ns.webkitTransform =
+    ns.mozTransform =
+    ns.msTransform =
+    ns.transform = trans;
+  }
+
+  function deg(x) {
+    return { valueOf: function () {return x * PI / 180;} };
+  }
+
+}]);
+//# sourceURL=pen.js
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+<title>CodePen - Animated 404</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto:700' rel='stylesheet' type='text/css'>
+<style>
+body {
+ background: #f5f5f5; font-family: 'Roboto', sans-serif;}
+
+.mini {
+  font-size: 1em;
+  color: #000;
+  line-height: 9em;
+  text-indent: 2.5em;
+  position: absolute;
+  left: 50%;
+  top: 50%; 
+}
+.mega, .bola{
+  line-height: 1.65em;
+  font-weight: bold;
+  font-size: 11em;
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%; 
+  margin-left: -150px;
+  margin-top: -150px;}
+ 
+.boom {color: #f5f5f5; }
+</style>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body translate="no">
+<p class="mega">4<span class="boom">0</span>4<div class="bola">
+</div></p>
+<p class="mini">That's an error.</p>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-db44b196776521ea816683afab021f757616c80860d31da6232dedb8d7cc4862.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r58/three.min.js'></script>
+<script id="rendered-js">
+var $container = $('.bola');
+var renderer = new THREE.WebGLRenderer({ antialias: true });
+var camera = new THREE.PerspectiveCamera(80, 1, 0.1, 10000);
+var scene = new THREE.Scene();
+
+scene.add(camera);
+renderer.setSize(300, 300);
+$container.append(renderer.domElement);
+
+///////////////////////////////////////////////
+
+// Camera
+camera.position.z = 200;
+
+// Material
+var pinkMat = new THREE.MeshPhongMaterial({
+  color: new THREE.Color("rgb(226,35,213)"),
+  emissive: new THREE.Color("rgb(0,0,0)"),
+  specular: new THREE.Color("rgb(255,155,255)"),
+  shininess: 100,
+  shading: THREE.FlatShading,
+  transparent: 1,
+  opacity: 1 });
+
+
+var L1 = new THREE.PointLight(0xffffff, 1);
+L1.position.z = 100;
+L1.position.y = 100;
+L1.position.x = 100;
+scene.add(L1);
+
+var L2 = new THREE.PointLight(0xffffff, 0.8);
+L2.position.z = 200;
+L2.position.y = 400;
+L2.position.x = -100;
+scene.add(L2);
+
+// IcoSphere -> THREE.IcosahedronGeometry(80, 1) 1-4
+var Ico = new THREE.Mesh(new THREE.IcosahedronGeometry(75, 1), pinkMat);
+Ico.rotation.z = 0.5;
+scene.add(Ico);
+
+function update() {
+  Ico.rotation.x += 2 / 100;
+  Ico.rotation.y += 2 / 100;
+}
+
+// Render
+function render() {
+  requestAnimationFrame(render);
+  renderer.render(scene, camera);
+  update();
+}
+
+render();
+//# sourceURL=pen.js
+    </script>
+</body>
+</html>
